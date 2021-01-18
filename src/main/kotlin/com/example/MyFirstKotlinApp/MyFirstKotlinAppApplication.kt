@@ -7,24 +7,16 @@ import org.springframework.boot.runApplication
 class MyFirstKotlinAppApplication
 
 fun main(args: Array<String>) {
-//	runApplication<MyFirstKotlinAppApplication>(*args)
-	// Normal statement
-	var x = 3;
-	x = x*10;
-	print("x is $x.\n");
+	//	runApplication<MyFirstKotlinAppApplication>(*args)
+	val wordArray1 = arrayOf("24/7","muti-haha","xixi","oo")
+	val wordArray2 = arrayOf("username","password","key","login")
 
-	// Loop statement
-	while (x >20){
-		x = x-1;
-		println("x is $x. ")
-	}
-	for (i in 1..10){
-		x=x+1;
-		println("X now is $x. ");
-	}
+	val arraySize1 = wordArray1.size
+	val arraySize2 = wordArray2.size
 
-	// if - else 若只有一行，可简写
-	println(if (x>3) "X is grater than 3" else "X is smaller than 3")
+	val rand1 = (Math.random() * arraySize1).toInt()
+	val rand2 = (Math.random() * arraySize2).toInt()
+	val phrase = "${wordArray1[rand1]},${wordArray2[rand2]}"
 
-
+	println(phrase)
 }
