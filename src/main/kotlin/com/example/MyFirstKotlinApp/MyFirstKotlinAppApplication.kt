@@ -1,30 +1,42 @@
 package com.example.MyFirstKotlinApp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class MyFirstKotlinAppApplication
 
 fun main(args: Array<String>) {
-//	runApplication<MyFirstKotlinAppApplication>(*args)
-	// Normal statement
-	var x = 3;
-	x = x*10;
-	print("x is $x.\n");
+	val options = arrayOf("Rock","Paper","Scissors")
+	val gameChoice = getGameChoice(options)
+	val userChoice = getUserChoice(options)
+	printResult(gameChoice,userChoice)
+}
 
-	// Loop statement
-	while (x >20){
-		x = x-1;
-		println("x is $x. ")
+fun getGameChoice(options:Array<String>): String {
+	return options[(Math.random() * options.size).toInt()]
+}
+
+fun getUserChoice(options:Array<String>): String {
+	while (true){
+		println("Please enter one of the following:")
+		for (item in options) println (item)
+		println("~~~~~~~~~~~~~~~~~~~~~~~~")
+
+		val userInput = readLine()?.capitalize()
+		if (userInput != null && userInput in options ){
+			return userInput;
+		}else{
+			println("Please enter a valid choice!")
+		}
 	}
-	for (i in 1..10){
-		x=x+1;
-		println("X now is $x. ");
-	}
+}
 
-	// if - else 若只有一行，可简写
-	println(if (x>3) "X is grater than 3" else "X is smaller than 3")
-
-
+fun printResult(userChoice: String, gameChoice: String){
+	val result: String
+	if(userChoice== gameChoice) result="Tie!";
+	else if ((userChoice=="Rock" && gameChoice == "Scissors") ||
+			(userChoice == "Paper" && gameChoice == "Rock") ||
+			(userChoice == "Scissors" && gameChoice == "Paper")) result="You win!"
+	else result="You lose!"
+	println("You chose $userChoice. I chose $gameChoice. $result")
 }
