@@ -1,22 +1,42 @@
 package com.example.MyFirstKotlinApp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class MyFirstKotlinAppApplication
 
 fun main(args: Array<String>) {
-	//	runApplication<MyFirstKotlinAppApplication>(*args)
-	val wordArray1 = arrayOf("24/7","muti-haha","xixi","oo")
-	val wordArray2 = arrayOf("username","password","key","login")
+	val options = arrayOf("Rock","Paper","Scissors")
+	val gameChoice = getGameChoice(options)
+	val userChoice = getUserChoice(options)
+	printResult(gameChoice,userChoice)
+}
 
-	val arraySize1 = wordArray1.size
-	val arraySize2 = wordArray2.size
+fun getGameChoice(options:Array<String>): String {
+	return options[(Math.random() * options.size).toInt()]
+}
 
-	val rand1 = (Math.random() * arraySize1).toInt()
-	val rand2 = (Math.random() * arraySize2).toInt()
-	val phrase = "${wordArray1[rand1]},${wordArray2[rand2]}"
+fun getUserChoice(options:Array<String>): String {
+	while (true){
+		println("Please enter one of the following:")
+		for (item in options) println (item)
+		println("~~~~~~~~~~~~~~~~~~~~~~~~")
 
-	println(phrase)
+		val userInput = readLine()?.capitalize()
+		if (userInput != null && userInput in options ){
+			return userInput;
+		}else{
+			println("Please enter a valid choice!")
+		}
+	}
+}
+
+fun printResult(userChoice: String, gameChoice: String){
+	val result: String
+	if(userChoice== gameChoice) result="Tie!";
+	else if ((userChoice=="Rock" && gameChoice == "Scissors") ||
+			(userChoice == "Paper" && gameChoice == "Rock") ||
+			(userChoice == "Scissors" && gameChoice == "Paper")) result="You win!"
+	else result="You lose!"
+	println("You chose $userChoice. I chose $gameChoice. $result")
 }
